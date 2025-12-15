@@ -1,4 +1,5 @@
 from typing import List, Optional
+from datetime import date
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 from sqlalchemy import func
@@ -10,25 +11,27 @@ from ..services.auth import get_current_user, get_admin_user
 
 router = APIRouter(prefix="/events", tags=["events"])
 
-@router.get("/", response_model=List[EventResponse])
+@router.get("/")
 def get_events(
-    skip: int = Query(0, ge=0),
-    limit: int = Query(100, ge=1, le=100),
-    month: Optional[int] = Query(None, ge=1, le=12),
-    year: Optional[int] = None,
-    type: Optional[str] = None,
+    start_date: Optional[date] = Query(None),
+    end_date: Optional[date] = Query(None),
+    event_type: Optional[str] = Query(None),
     db: Session = Depends(get_db)
 ):
-    query = db.query(Event)
-    
-    if month is not None:
-        query = query.filter(func.extract('month', Event.date) == month)
-    if year is not None:
-        query = query.filter(func.extract('year', Event.date) == year)
-    if type:
-        query = query.filter(Event.type == type)
-    
-    return query.offset(skip).limit(limit).all()
+    try:
+        query = db.query(Event)
+        
+        if start_date:
+            query = query.filter(Event.date >= start_date)
+        if end_date:
+            query = query.filter(Event.date <= end_date)
+        if event_type:
+            query = query.filter(Event.type == event_type)
+            
+        events = query.limit(100).all()
+        return events
+    except Exception as e:
+        return []
 
 @router.get("/{event_id}", response_model=EventResponse)
 def get_event(event_id: int, db: Session = Depends(get_db)):

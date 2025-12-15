@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .routers import auth, objects, events, constellations, favorites
+from .routers import auth, objects, events, constellations, favorites, nasa
 
 app = FastAPI(
     title="AstrumAtlas API",
@@ -21,6 +21,7 @@ app.include_router(objects.router)
 app.include_router(events.router)
 app.include_router(constellations.router)
 app.include_router(favorites.router)
+app.include_router(nasa.router)
 
 @app.get("/")
 def read_root():

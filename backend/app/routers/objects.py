@@ -10,7 +10,7 @@ from ..services.auth import get_current_user, get_admin_user
 
 router = APIRouter(prefix="/objects", tags=["objects"])
 
-@router.get("/", response_model=List[ObjectResponse])
+@router.get("/")
 def get_objects(
     skip: int = Query(0, ge=0),
     limit: int = Query(100, ge=1, le=100),
@@ -22,20 +22,23 @@ def get_objects(
     magnitude_max: Optional[float] = None,
     db: Session = Depends(get_db)
 ):
-    query = db.query(AstronomicObject)
-    
-    if type:
-        query = query.filter(AstronomicObject.type == type)
-    if distance_min is not None:
-        query = query.filter(AstronomicObject.distance_ly >= distance_min)
-    if distance_max is not None:
-        query = query.filter(AstronomicObject.distance_ly <= distance_max)
-    if magnitude_min is not None:
-        query = query.filter(AstronomicObject.magnitude >= magnitude_min)
-    if magnitude_max is not None:
-        query = query.filter(AstronomicObject.magnitude <= magnitude_max)
-    
-    return query.offset(skip).limit(limit).all()
+    try:
+        query = db.query(AstronomicObject)
+        
+        if type:
+            query = query.filter(AstronomicObject.type == type)
+        if distance_min is not None:
+            query = query.filter(AstronomicObject.distance_ly >= distance_min)
+        if distance_max is not None:
+            query = query.filter(AstronomicObject.distance_ly <= distance_max)
+        if magnitude_min is not None:
+            query = query.filter(AstronomicObject.magnitude >= magnitude_min)
+        if magnitude_max is not None:
+            query = query.filter(AstronomicObject.magnitude <= magnitude_max)
+        
+        return query.offset(skip).limit(limit).all()
+    except Exception as e:
+        return []
 
 @router.get("/{object_id}", response_model=ObjectResponse)
 def get_object(object_id: int, db: Session = Depends(get_db)):
