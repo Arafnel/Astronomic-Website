@@ -34,5 +34,4 @@ class ObjectResponse(BaseModel):
     image_url: Optional[str] = None
     constellation: Optional[ConstellationResponse] = None
     
-    class Config:
-        from_attributes = True
+    model_config = {"from_attributes": True}

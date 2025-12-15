@@ -1,9 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .database import engine, Base
 from .routers import auth, objects, events, constellations, favorites
-
-Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="AstrumAtlas API",

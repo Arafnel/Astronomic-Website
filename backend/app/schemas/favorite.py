@@ -9,5 +9,4 @@ class FavoriteResponse(BaseModel):
     created_at: datetime
     astronomic_object: ObjectResponse
     
-    class Config:
-        from_attributes = True
+    model_config = {"from_attributes": True}

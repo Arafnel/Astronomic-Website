@@ -1,6 +1,7 @@
 from typing import List, Optional
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
+from sqlalchemy import func
 from ..database import get_db
 from ..models.event import Event
 from ..models.user import User
@@ -21,9 +22,9 @@ def get_events(
     query = db.query(Event)
     
     if month is not None:
-        query = query.filter(Event.date.extract('month') == month)
+        query = query.filter(func.extract('month', Event.date) == month)
     if year is not None:
-        query = query.filter(Event.date.extract('year') == year)
+        query = query.filter(func.extract('year', Event.date) == year)
     if type:
         query = query.filter(Event.type == type)
     
@@ -42,7 +43,7 @@ def create_event(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_admin_user)
 ):
-    db_event = Event(**event.dict())
+    db_event = Event(**event.model_dump())
     db.add(db_event)
     db.commit()
     db.refresh(db_event)
@@ -59,7 +60,7 @@ def update_event(
     if not db_event:
         raise HTTPException(status_code=404, detail="Event not found")
     
-    update_data = event_update.dict(exclude_unset=True)
+    update_data = event_update.model_dump(exclude_unset=True)
     for field, value in update_data.items():
         setattr(db_event, field, value)
     

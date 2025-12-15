@@ -1,10 +1,10 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel
 from datetime import datetime
 from typing import Optional
 
 class UserCreate(BaseModel):
     username: str
-    email: EmailStr
+    email: str
     password: str
 
 class UserLogin(BaseModel):
@@ -18,8 +18,7 @@ class UserResponse(BaseModel):
     is_admin: bool
     created_at: datetime
     
-    class Config:
-        from_attributes = True
+    model_config = {"from_attributes": True}
 
 class Token(BaseModel):
     access_token: str

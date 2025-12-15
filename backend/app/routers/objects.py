@@ -50,7 +50,7 @@ def create_object(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_admin_user)
 ):
-    db_obj = AstronomicObject(**obj.dict())
+    db_obj = AstronomicObject(**obj.model_dump())
     db.add(db_obj)
     db.commit()
     db.refresh(db_obj)
@@ -67,7 +67,7 @@ def update_object(
     if not db_obj:
         raise HTTPException(status_code=404, detail="Object not found")
     
-    update_data = obj_update.dict(exclude_unset=True)
+    update_data = obj_update.model_dump(exclude_unset=True)
     for field, value in update_data.items():
         setattr(db_obj, field, value)
     

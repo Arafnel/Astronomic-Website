@@ -6,5 +6,4 @@ class ConstellationResponse(BaseModel):
     name: str
     short_description: Optional[str] = None
     
-    class Config:
-        from_attributes = True
+    model_config = {"from_attributes": True}
