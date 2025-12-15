@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+  color: white;
+  min-height: 100vh;
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-cosmic-gradient text-white px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-all duration-200 shadow-lg;
+  }
+  
+  .btn-secondary {
+    @apply bg-space-700 text-white px-6 py-3 rounded-lg font-semibold hover:bg-space-600 transition-all duration-200 border border-space-500;
+  }
+  
+  .card {
+    @apply bg-space-800/50 backdrop-blur-sm border border-space-600 rounded-xl p-6 shadow-xl;
+  }
+  
+  .input-field {
+    @apply bg-space-800 border border-space-600 rounded-lg px-4 py-3 text-white placeholder-space-400 focus:border-cosmic-500 focus:outline-none transition-colors;
+  }
+  
+  .nav-link {
+    @apply text-space-300 hover:text-white transition-colors duration-200 px-3 py-2 rounded-md hover:bg-space-700/50;
+  }
+  
+  .nav-link.active {
+    @apply text-white bg-cosmic-600/20 border-b-2 border-cosmic-500;
+  }
+}
