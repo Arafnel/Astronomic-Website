@@ -9,7 +9,7 @@ const ObjectCard = ({ object, isFavorite = false, onFavoriteChange }) => {
 
   const handleFavoriteToggle = async () => {
     if (!user) return;
-    
+
     setLoading(true);
     try {
       if (isFavorite) {
@@ -28,13 +28,13 @@ const ObjectCard = ({ object, isFavorite = false, onFavoriteChange }) => {
   return (
     <div className="card hover:scale-105 transition-transform duration-200">
       {object.image_url && (
-        <img 
-          src={object.image_url} 
+        <img
+          src={object.image_url}
           alt={object.name}
           className="w-full h-48 object-cover rounded-lg mb-4"
         />
       )}
-      
+
       <div className="flex justify-between items-start mb-3">
         <h3 className="text-xl font-bold text-white">{object.name}</h3>
         {user && (
@@ -42,8 +42,8 @@ const ObjectCard = ({ object, isFavorite = false, onFavoriteChange }) => {
             onClick={handleFavoriteToggle}
             disabled={loading}
             className={`p-2 rounded-full transition-colors ${
-              isFavorite 
-                ? 'text-red-400 hover:text-red-300' 
+              isFavorite
+                ? 'text-red-400 hover:text-red-300'
                 : 'text-space-400 hover:text-red-400'
             }`}
           >
@@ -58,14 +58,14 @@ const ObjectCard = ({ object, isFavorite = false, onFavoriteChange }) => {
             {object.type}
           </span>
         </div>
-        
+
         {object.constellation && (
           <div className="flex items-center text-space-300 text-sm">
             <MapPin className="h-4 w-4 mr-2" />
             <span>{object.constellation.name}</span>
           </div>
         )}
-        
+
         {object.distance_ly && (
           <div className="flex items-center text-space-300 text-sm">
             <Ruler className="h-4 w-4 mr-2" />

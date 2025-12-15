@@ -3,8 +3,7 @@
 @tailwind utilities;
 
 body {
-  background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
-  color: white;
+  @apply bg-space-gradient text-white min-h-screen;
   min-height: 100vh;
 }
 
@@ -31,5 +30,34 @@ body {
   
   .nav-link.active {
     @apply text-white bg-cosmic-600/20 border-b-2 border-cosmic-500;
+  }
+
+  .hero-glow {
+    background:
+      radial-gradient(circle at 20% 20%, rgba(250, 219, 141, 0.35), transparent 55%),
+      radial-gradient(circle at 80% 10%, rgba(227, 170, 87, 0.25), transparent 60%),
+      radial-gradient(circle at 10% 80%, rgba(197, 138, 31, 0.25), transparent 60%);
+  }
+
+  .starfield {
+    background-image:
+      radial-gradient(1.6px 1.6px at 10% 20%, rgba(255, 255, 255, 0.6), transparent),
+      radial-gradient(1.6px 1.6px at 30% 80%, rgba(255, 255, 255, 0.5), transparent),
+      radial-gradient(1.6px 1.6px at 70% 30%, rgba(255, 255, 255, 0.45), transparent),
+      radial-gradient(1.6px 1.6px at 90% 60%, rgba(255, 255, 255, 0.4), transparent);
+    background-size: 260px 260px;
+    animation: starDrift 70s linear infinite;
+  }
+}
+
+@keyframes starDrift {
+  0% {
+    background-position: 0 0, 0 0, 0 0, 0 0;
+  }
+  50% {
+    background-position: 40px 60px, -30px 80px, 25px -45px, -35px 35px;
+  }
+  100% {
+    background-position: 80px 120px, -60px 160px, 50px -90px, -70px 70px;
   }
 }

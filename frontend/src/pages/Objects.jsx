@@ -31,7 +31,7 @@ const Objects = () => {
   return (
     <div style={{ padding: '20px' }}>
       <h1 style={{ fontSize: '2.5rem', marginBottom: '20px' }}>🪐 Каталог объектов</h1>
-      
+
       {objects.length === 0 ? (
         <div style={{ textAlign: 'center', padding: '40px' }}>
           <p>База данных пуста. Добавьте объекты через API.</p>

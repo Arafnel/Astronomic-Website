@@ -35,7 +35,7 @@ const Events = () => {
   return (
     <div style={{ padding: '20px' }}>
       <h1 style={{ fontSize: '2.5rem', marginBottom: '20px' }}>📅 Астрономические события</h1>
-      
+
       {events.length === 0 ? (
         <div style={{ textAlign: 'center', padding: '40px' }}>
           <p>Событий нет. Добавьте события через API.</p>
