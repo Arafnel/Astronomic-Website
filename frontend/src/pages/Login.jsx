@@ -1,119 +1,106 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth.jsx';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setMessage('');
+    setError('');
 
     try {
-      const response = await fetch('http://localhost:8000/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-      });
-
-      const data = await response.json();
-      
-      if (response.ok) {
-        localStorage.setItem('token', data.access_token);
-        setMessage('✅ Успешный вход!');
-      } else {
-        setMessage('❌ ' + (data.detail || 'Ошибка входа'));
-      }
-    } catch (error) {
-      setMessage('❌ Ошибка соединения с сервером');
+      await login({ username, password });
+      navigate('/');
+    } catch (err) {
+      console.error('Login error:', err);
+      const msg =
+        err?.response?.data?.detail ||
+        'Не удалось войти. Проверьте логин и пароль.';
+      setError(msg);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div style={{ maxWidth: '400px', margin: '0 auto', padding: '40px 20px' }}>
-      <div style={{ background: 'rgba(255,255,255,0.1)', padding: '30px', borderRadius: '15px', backdropFilter: 'blur(10px)' }}>
-        <h2 style={{ textAlign: 'center', marginBottom: '30px', fontSize: '1.8rem' }}>🚀 Вход в AstrumAtlas</h2>
-        
-        {message && (
-          <div style={{ 
-            padding: '10px', 
-            marginBottom: '20px', 
-            borderRadius: '8px', 
-            background: message.includes('✅') ? 'rgba(34, 197, 94, 0.2)' : 'rgba(239, 68, 68, 0.2)',
-            textAlign: 'center'
-          }}>
-            {message}
+    <main className="relative flex min-h-[calc(100vh-5rem)] items-center justify-center px-6 py-16">
+      <div className="hero-glow starfield pointer-events-none absolute inset-0 opacity-70" />
+
+      <section className="relative z-10 w-full max-w-md rounded-3xl border border-gold-500/60 bg-black/50 px-8 py-10 shadow-[0_0_60px_rgba(0,0,0,0.9)] backdrop-blur">
+        <div className="pointer-events-none absolute inset-px rounded-[26px] border border-gold-500/30 opacity-70" />
+
+        <header className="relative mb-8 text-center">
+          <p className="text-xs tracking-[0.35em] uppercase text-gold-300/80">
+            AstrumAtlas
+          </p>
+          <h1 className="mt-3 bg-cosmic-gradient bg-clip-text text-2xl font-semibold tracking-[0.2em] text-transparent">
+            Sign In
+          </h1>
+          <p className="mt-3 text-[0.85rem] text-gold-100/75">
+            Откройте свой личный звездный атлас и сохранённые объекты.
+          </p>
+        </header>
+
+        {error && (
+          <div className="relative mb-5 rounded-2xl border border-red-400/60 bg-red-500/10 px-4 py-3 text-sm text-red-100">
+            {error}
           </div>
         )}
-        
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label style={{ display: 'block', marginBottom: '8px', opacity: 0.8 }}>Имя пользователя</label>
-            <input 
-              type="text" 
+            <label className="mb-2 block text-xs font-medium tracking-[0.18em] uppercase text-gold-200/80">
+              Имя пользователя
+            </label>
+            <input
+              type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
-              style={{ 
-                width: '100%', 
-                padding: '12px', 
-                borderRadius: '8px', 
-                border: '1px solid rgba(255,255,255,0.3)', 
-                background: 'rgba(0,0,0,0.3)', 
-                color: 'white' 
-              }} 
+              className="input-field w-full"
+              placeholder="orion_observer"
             />
           </div>
-          
+
           <div>
-            <label style={{ display: 'block', marginBottom: '8px', opacity: 0.8 }}>Пароль</label>
-            <input 
-              type="password" 
+            <label className="mb-2 block text-xs font-medium tracking-[0.18em] uppercase text-gold-200/80">
+              Пароль
+            </label>
+            <input
+              type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              style={{ 
-                width: '100%', 
-                padding: '12px', 
-                borderRadius: '8px', 
-                border: '1px solid rgba(255,255,255,0.3)', 
-                background: 'rgba(0,0,0,0.3)', 
-                color: 'white' 
-              }} 
+              className="input-field w-full"
+              placeholder="••••••••"
             />
           </div>
-          
-          <button 
-            type="submit" 
+
+          <button
+            type="submit"
             disabled={loading}
-            style={{ 
-              background: loading ? '#666' : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', 
-              color: 'white', 
-              padding: '12px', 
-              borderRadius: '8px', 
-              border: 'none', 
-              fontSize: '1rem', 
-              cursor: loading ? 'not-allowed' : 'pointer' 
-            }}
+            className="btn-primary flex w-full items-center justify-center text-sm tracking-[0.18em] uppercase disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {loading ? '⏳ Вход...' : 'Войти'}
+            {loading ? 'Входим…' : 'Войти'}
           </button>
         </form>
-        
-        <div style={{ textAlign: 'center', marginTop: '20px' }}>
-          <p style={{ opacity: 0.7, marginBottom: '10px' }}>
-            Нет аккаунта? Создайте через API:
-          </p>
-          <code style={{ background: 'rgba(0,0,0,0.3)', padding: '5px', borderRadius: '4px', fontSize: '0.8rem' }}>
+
+        <p className="mt-6 text-center text-[0.78rem] text-gold-100/60">
+          Регистрация пока доступна через API:
+          <br />
+          <span className="rounded-full border border-gold-500/40 bg-black/40 px-3 py-1">
             POST /auth/register
-          </code>
-        </div>
-      </div>
-    </div>
+          </span>
+        </p>
+      </section>
+    </main>
   );
 };
 

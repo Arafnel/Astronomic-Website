@@ -4,6 +4,7 @@ import Objects from './pages/Objects';
 import Events from './pages/Events';
 import NASA from './pages/NASA';
 import Login from './pages/Login';
+import Register from './pages/Register';
 
 const Navigation = () => {
   const location = useLocation();
@@ -43,6 +44,7 @@ const Navigation = () => {
         <Link to="/events" style={location.pathname === '/events' ? activeLinkStyle : linkStyle}>События</Link>
         <Link to="/nasa" style={location.pathname === '/nasa' ? activeLinkStyle : linkStyle}>NASA</Link>
         <Link to="/login" style={location.pathname === '/login' ? activeLinkStyle : linkStyle}>Вход</Link>
+        <Link to="/register" style={location.pathname === '/register' ? activeLinkStyle : linkStyle}>Регистрация</Link>
       </div>
     </nav>
   );
@@ -59,6 +61,7 @@ function App() {
           <Route path="/events" element={<Events />} />
           <Route path="/nasa" element={<NASA />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </div>
     </Router>

@@ -4,7 +4,7 @@ from datetime import datetime
 
 router = APIRouter(prefix="/nasa", tags=["nasa"])
 
-NASA_API_KEY = "DEMO_KEY"  # Используем демо ключ
+NASA_API_KEY = "WiCBnnVf0ZFAXbVQQdjiSc0LC4cqcIhffPV1aVmy"
 NASA_BASE_URL = "https://api.nasa.gov"
 
 @router.get("/apod")
@@ -39,7 +39,7 @@ def get_near_earth_objects():
         # Упрощаем данные
         objects = []
         for date, asteroids in data.get("near_earth_objects", {}).items():
-            for asteroid in asteroids[:5]:  # Берем первые 5
+            for asteroid in asteroids[:5]:
                 objects.append({
                     "name": asteroid["name"],
                     "diameter_km": asteroid["estimated_diameter"]["kilometers"]["estimated_diameter_max"],
@@ -62,7 +62,6 @@ def get_mars_weather():
         response.raise_for_status()
         return response.json()
     except requests.RequestException as e:
-        # Если API недоступен, возвращаем моковые данные
         return {
             "message": "Mars weather data temporarily unavailable",
             "mock_data": {

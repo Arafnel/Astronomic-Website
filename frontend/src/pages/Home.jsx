@@ -10,7 +10,7 @@ const Home = () => {
       <section className="relative mx-auto flex min-h-[calc(100vh-5rem)] max-w-6xl flex-col items-center justify-center px-6 py-16 text-center md:items-start md:text-left">
         <div className="inline-flex items-center gap-3 rounded-full border border-gold-500/40 bg-black/40 px-4 py-2 text-xs tracking-[0.25em] uppercase text-gold-200 backdrop-blur">
           <span className="h-1.5 w-1.5 rounded-full bg-gold-400 shadow-[0_0_18px_rgba(243,210,138,0.9)]" />
-          <span>Карта наблюдаемой вселенной</span>
+          <span>Map of the observable universe</span>
         </div>
 
         <h1 className="mt-8 bg-cosmic-gradient bg-clip-text text-5xl font-semibold tracking-wide text-transparent sm:text-6xl md:text-7xl">
@@ -18,9 +18,9 @@ const Home = () => {
         </h1>
 
         <p className="mt-6 max-w-xl text-lg text-gold-100/80 md:text-xl">
-          Где любопытство встречается с космосом.
+          Where curiosity meets the cosmos.
           <br className="hidden md:block" />
-          Ваша карта по наблюдаемой вселенной.
+          Your map of the observable universe.
         </p>
 
         <div className="mt-10 flex flex-col items-center gap-10 md:flex-row md:items-end md:gap-16">
@@ -29,13 +29,13 @@ const Home = () => {
             <div className="absolute -inset-6 rounded-3xl bg-gradient-to-br from-gold-500/25 via-transparent to-gold-700/10 blur-2xl" />
             <div className="relative rounded-3xl border border-gold-500/40 bg-black/40 px-10 py-8 text-left shadow-[0_0_40px_rgba(0,0,0,0.8)] backdrop-blur">
               <p className="text-xs uppercase tracking-[0.3em] text-gold-200/80">
-                Более чем
+                More than
               </p>
               <p className="mt-3 text-5xl font-semibold text-gold-100 md:text-6xl">
                 739K
               </p>
               <p className="mt-3 max-w-[12rem] text-sm text-gold-100/80">
-                астрономических объектов в вашем личном атласе.
+                astronomical objects in your personal atlas.
               </p>
             </div>
           </div>
@@ -52,28 +52,28 @@ const Home = () => {
             <div className="space-y-4 text-left text-sm text-gold-100/85">
               <div>
                 <p className="text-xs uppercase tracking-[0.25em] text-gold-300">
-                  🔭 Каталог объектов
+                  🔭 Object catalog
                 </p>
                 <p className="mt-1 text-sm">
-                  Планеты, звезды, туманности и галактики в одном месте.
+                  Planets, stars, nebulae and galaxies in one place.
                 </p>
               </div>
 
               <div>
                 <p className="text-xs uppercase tracking-[0.25em] text-gold-300">
-                  📅 Космические события
+                  📅 Cosmic events
                 </p>
                 <p className="mt-1 text-sm">
-                  Затмения, соединения планет и метеорные дожди в вашем календаре.
+                  Eclipses, planetary conjunctions and meteor showers in your calendar.
                 </p>
               </div>
 
               <div>
                 <p className="text-xs uppercase tracking-[0.25em] text-gold-300">
-                  ⭐ Личное созвездие
+                  ⭐ Your personal constellation
                 </p>
                 <p className="mt-1 text-sm">
-                  Сохраняйте любимые объекты и собирайте собственные коллекции.
+                  Save your favorite objects and collect your own collections.
                 </p>
               </div>
             </div>

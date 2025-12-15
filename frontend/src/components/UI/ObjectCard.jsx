@@ -26,63 +26,60 @@ const ObjectCard = ({ object, isFavorite = false, onFavoriteChange }) => {
   };
 
   return (
-    <div className="card hover:scale-105 transition-transform duration-200">
-      {object.image_url && (
-        <img
-          src={object.image_url}
-          alt={object.name}
-          className="w-full h-48 object-cover rounded-lg mb-4"
-        />
-      )}
+    <div className="relative flex h-full w-full min-h-[260px] flex-col overflow-hidden rounded-2xl border border-gold-500/60 bg-black/40 px-6 pt-6 pb-5 shadow-[0_0_40px_rgba(0,0,0,0.8)] backdrop-blur-sm transition-transform duration-200 hover:-translate-y-1 hover:shadow-[0_0_60px_rgba(245,208,138,0.35)]">
+      <div className="pointer-events-none absolute inset-px rounded-[18px] border border-gold-500/30 opacity-60" />
 
-      <div className="flex justify-between items-start mb-3">
-        <h3 className="text-xl font-bold text-white">{object.name}</h3>
+      <div className="mb-5 flex items-start justify-between">
+        <div className="flex items-center gap-4">
+          <div className="h-14 w-14 rounded-full border border-gold-400/70 bg-gradient-to-br from-gold-200/80 via-gold-500/80 to-black shadow-[0_0_30px_rgba(245,208,138,0.8)]" />
+          <div className="text-left text-xs uppercase tracking-[0.25em] text-gold-300/80">
+            <div>Object</div>
+            <div className="text-gold-200/60">
+              {object.type || '—'}
+            </div>
+          </div>
+        </div>
+
         {user && (
           <button
             onClick={handleFavoriteToggle}
             disabled={loading}
-            className={`p-2 rounded-full transition-colors ${
-              isFavorite
-                ? 'text-red-400 hover:text-red-300'
-                : 'text-space-400 hover:text-red-400'
+            className={`rounded-full border border-gold-400/60 bg-black/40 p-2 text-gold-200 transition-colors ${
+              isFavorite ? 'text-gold-300' : 'hover:text-gold-300'
             }`}
           >
-            <Heart className={`h-5 w-5 ${isFavorite ? 'fill-current' : ''}`} />
+            <Heart
+              className={`h-4 w-4 ${isFavorite ? 'fill-current' : ''}`}
+            />
           </button>
         )}
       </div>
 
-      <div className="space-y-2 mb-4">
-        <div className="flex items-center text-space-300 text-sm">
-          <span className="bg-cosmic-600/20 px-2 py-1 rounded text-cosmic-300 font-medium">
-            {object.type}
-          </span>
-        </div>
+      <h3 className="text-lg font-semibold tracking-wide text-gold-100">
+        {object.name}
+      </h3>
 
+      <div className="mt-3 space-y-1 text-[0.8rem] text-gold-100/80">
         {object.constellation && (
-          <div className="flex items-center text-space-300 text-sm">
-            <MapPin className="h-4 w-4 mr-2" />
+          <div className="flex items-center gap-2">
+            <MapPin className="h-3 w-3" />
             <span>{object.constellation.name}</span>
           </div>
         )}
 
         {object.distance_ly && (
-          <div className="flex items-center text-space-300 text-sm">
-            <Ruler className="h-4 w-4 mr-2" />
+          <div className="flex items-center gap-2">
+            <Ruler className="h-3 w-3" />
             <span>{object.distance_ly.toLocaleString()} св. лет</span>
           </div>
         )}
       </div>
 
       {object.short_description && (
-        <p className="text-space-300 text-sm mb-4 line-clamp-3">
+        <p className="mt-4 text-[0.78rem] leading-relaxed text-gold-100/75 line-clamp-3">
           {object.short_description}
         </p>
       )}
-
-      <button className="btn-secondary w-full text-sm">
-        Подробнее
-      </button>
     </div>
   );
 };
