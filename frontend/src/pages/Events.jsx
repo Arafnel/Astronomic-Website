@@ -18,14 +18,14 @@ const Events = () => {
           date: a.close_approach_date,
           type: 'asteroid_pass',
           visibility: 'near_earth',
-          description: `Диаметр ~${a.diameter_km?.toFixed(2)} км. Потенциально опасный: ${
-            a.is_potentially_hazardous ? 'да' : 'нет'
+          description: `Diameter ~${a.diameter_km?.toFixed(2)} km. Potentially hazardous: ${
+            a.is_potentially_hazardous ? 'yes' : 'no'
           }.`,
         }));
         setEvents(neoEvents);
       } catch (err) {
-        console.error('Ошибка загрузки событий NASA:', err);
-        setError('Не удалось загрузить события NASA. Попробуйте обновить страницу позже.');
+        console.error('Failed to load NASA events:', err);
+        setError('Unable to load NASA events. Please try again later.');
       } finally {
         setLoading(false);
       }
@@ -35,10 +35,10 @@ const Events = () => {
   }, []);
 
   const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('ru-RU');
+    return new Date(dateString).toLocaleDateString('en-US');
   };
 
-  if (loading) return <div className="py-10 text-center text-gold-100">⏳ Загрузка событий...</div>;
+  if (loading) return <div className="py-10 text-center text-gold-100">⏳ Loading events...</div>;
   if (error) return <div className="py-10 text-center text-red-400">{error}</div>;
 
   return (
@@ -51,13 +51,13 @@ const Events = () => {
           Astronomic Events
         </h1>
         <p className="mt-4 mx-auto max-w-2xl text-sm md:text-base text-gold-100/75">
-          Подборка ближайших затмений, метеорных потоков и других небесных явлений.
+          A selection of upcoming eclipses, meteor showers and other celestial events.
         </p>
       </section>
       
       {events.length === 0 ? (
         <div className="rounded-2xl border border-gold-500/40 bg-black/40 px-6 py-10 text-center text-sm text-gold-100/75">
-          <p>Данные о событиях NASA недоступны.</p>
+          <p>NASA event data is unavailable.</p>
         </div>
       ) : (
         <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

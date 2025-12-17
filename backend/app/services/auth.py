@@ -1,7 +1,7 @@
 import hashlib
 from datetime import datetime, timedelta
 from typing import Optional
-from fastapi import HTTPException, status, Depends
+from fastapi import HTTPException, status, Depends, Header
 from sqlalchemy.orm import Session
 from ..config import settings
 from ..database import get_db
@@ -17,7 +17,7 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     # Простой токен для теста
     return f"token_{data.get('sub', 'user')}_{datetime.now().timestamp()}"
 
-def get_current_user(authorization: str = None, db: Session = Depends(get_db)):
+def get_current_user(db: Session = Depends(get_db), authorization: str = Header(None)):
     if not authorization or not authorization.startswith('Bearer '):
         raise HTTPException(status_code=401, detail="Not authenticated")
     

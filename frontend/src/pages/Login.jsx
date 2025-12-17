@@ -21,113 +21,68 @@ const Login = () => {
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem('token', data.access_token);
-        setMessage('✅ Успешный вход! Можете перейти на главную страницу.');
+        setMessage('✅ Login successful!');
       } else {
         const errorData = await response.json();
-        setMessage('❌ ' + (errorData.detail || 'Неверные данные'));
+        setMessage('❌ ' + (errorData.detail || 'Invalid credentials'));
       }
     } catch (error) {
-      setMessage('❌ Ошибка соединения с сервером');
+      setMessage('❌ Connection error');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div style={{ maxWidth: '400px', margin: '0 auto', padding: '40px 20px' }}>
-      <div style={{ background: 'rgba(255,255,255,0.1)', padding: '30px', borderRadius: '15px', backdropFilter: 'blur(10px)' }}>
-        <h2 style={{ textAlign: 'center', marginBottom: '30px', fontSize: '1.8rem' }}>🚀 Вход в AstrumAtlas</h2>
-        
+    <main className="relative mx-auto max-w-md px-6 py-16">
+      <section className="mb-6 text-center">
+        <p className="text-xs tracking-[0.3em] uppercase text-gold-300/80">Account</p>
+        <h1 className="mt-3 text-3xl font-semibold tracking-[0.12em] text-gold-100">Sign in to AstrumAtlas</h1>
+        <p className="mt-2 text-sm text-gold-100/75">Sign in to save favorites and track events.</p>
+      </section>
+
+      <div className="mx-auto rounded-2xl border border-gold-500/40 bg-black/40 px-6 py-8">
         {message && (
-          <div style={{ 
-            padding: '10px', 
-            marginBottom: '20px', 
-            borderRadius: '8px', 
-            background: message.includes('✅') ? 'rgba(34, 197, 94, 0.2)' : 'rgba(239, 68, 68, 0.2)',
-            textAlign: 'center'
-          }}>
+          <div className={`mb-4 rounded-lg px-4 py-2 text-center ${message.includes('✅') ? 'bg-green-900/30 text-green-200' : 'bg-red-900/30 text-red-300'}`}>
             {message}
           </div>
         )}
-        
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
-            <label style={{ display: 'block', marginBottom: '8px', opacity: 0.8 }}>Имя пользователя</label>
-            <input 
-              type="text" 
+            <label className="block mb-2 text-sm text-gold-200/80">Username</label>
+            <input
+              type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
-              style={{ 
-                width: '100%', 
-                padding: '12px', 
-                borderRadius: '8px', 
-                border: '1px solid rgba(255,255,255,0.3)', 
-                background: 'rgba(0,0,0,0.3)', 
-                color: 'white' 
-              }} 
+              className="w-full rounded-md border border-gold-500/30 bg-black/30 px-3 py-2 text-gold-100"
             />
           </div>
-          
+
           <div>
-            <label style={{ display: 'block', marginBottom: '8px', opacity: 0.8 }}>Пароль</label>
-            <input 
-              type="password" 
+            <label className="block mb-2 text-sm text-gold-200/80">Password</label>
+            <input
+              type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              style={{ 
-                width: '100%', 
-                padding: '12px', 
-                borderRadius: '8px', 
-                border: '1px solid rgba(255,255,255,0.3)', 
-                background: 'rgba(0,0,0,0.3)', 
-                color: 'white' 
-              }} 
+              className="w-full rounded-md border border-gold-500/30 bg-black/30 px-3 py-2 text-gold-100"
             />
           </div>
-          
-          <button 
-            type="submit" 
+
+          <button
+            type="submit"
             disabled={loading}
-            style={{ 
-              background: loading ? '#666' : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', 
-              color: 'white', 
-              padding: '12px', 
-              borderRadius: '8px', 
-              border: 'none', 
-              fontSize: '1rem', 
-              cursor: loading ? 'not-allowed' : 'pointer' 
-            }}
+            className={`mt-2 rounded-md px-4 py-2 text-white ${loading ? 'bg-gray-600' : 'bg-gradient-to-r from-cosmic-400 to-cosmic-600'}`}
           >
-            {loading ? '⏳ Вход...' : 'Войти'}
+            {loading ? '⏳ Signing in...' : 'Sign in'}
           </button>
         </form>
-        
-        {message.includes('✅') && (
-          <div style={{ textAlign: 'center', marginTop: '20px' }}>
-            <a 
-              href="/" 
-              style={{ 
-                display: 'inline-block',
-                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', 
-                color: 'white', 
-                padding: '10px 20px', 
-                borderRadius: '8px', 
-                textDecoration: 'none',
-                fontSize: '0.9rem'
-              }}
-            >
-              Перейти на главную
-            </a>
-          </div>
-        )}
-        
-        <p style={{ textAlign: 'center', marginTop: '20px', opacity: 0.7 }}>
-          Нет аккаунта? <a href="/register" style={{ color: '#667eea' }}>Зарегистрироваться</a>
-        </p>
+
+        <p className="mt-4 text-center text-sm text-gold-100/70">Don't have an account? <a href="/register" className="text-cosmic-400">Register</a></p>
       </div>
-    </div>
+    </main>
   );
 };
 

@@ -47,13 +47,13 @@ const Navigation = () => {
       </Link>
       
       <div style={{ display: 'flex', gap: '10px' }}>
-        <Link to="/" style={location.pathname === '/' ? activeLinkStyle : linkStyle}>Главная</Link>
-        <Link to="/objects" style={location.pathname === '/objects' ? activeLinkStyle : linkStyle}>Объекты</Link>
-        <Link to="/events" style={location.pathname === '/events' ? activeLinkStyle : linkStyle}>События</Link>
+        <Link to="/" style={location.pathname === '/' ? activeLinkStyle : linkStyle}>Home</Link>
+        <Link to="/objects" style={location.pathname === '/objects' ? activeLinkStyle : linkStyle}>Objects</Link>
+        <Link to="/events" style={location.pathname === '/events' ? activeLinkStyle : linkStyle}>Events</Link>
         <Link to="/nasa" style={location.pathname === '/nasa' ? activeLinkStyle : linkStyle}>NASA</Link>
         {isLoggedIn ? (
           <>
-            <Link to="/favorites" style={location.pathname === '/favorites' ? activeLinkStyle : linkStyle}>Избранное</Link>
+            <Link to="/favorites" style={location.pathname === '/favorites' ? activeLinkStyle : linkStyle}>Favorites</Link>
             <button 
               onClick={() => {
                 localStorage.removeItem('token');
@@ -62,13 +62,13 @@ const Navigation = () => {
               }}
               style={linkStyle}
             >
-              Выход
+              Logout
             </button>
           </>
         ) : (
           <>
-            <Link to="/login" style={location.pathname === '/login' ? activeLinkStyle : linkStyle}>Вход</Link>
-            <Link to="/register" style={location.pathname === '/register' ? activeLinkStyle : linkStyle}>Регистрация</Link>
+            <Link to="/login" style={location.pathname === '/login' ? activeLinkStyle : linkStyle}>Login</Link>
+            <Link to="/register" style={location.pathname === '/register' ? activeLinkStyle : linkStyle}>Register</Link>
           </>
         )}
       </div>

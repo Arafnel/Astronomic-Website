@@ -15,7 +15,7 @@ const NASA = () => {
         ]);
 
         if (!apodRes.ok || !neoRes.ok) {
-          throw new Error('NASA API вернула ошибку');
+          throw new Error('NASA API returned an error');
         }
 
         const apodData = await apodRes.json();
@@ -25,7 +25,7 @@ const NASA = () => {
       setAsteroids(neoData.objects || []);
       } catch (err) {
       console.error('NASA API error:', err);
-        setError('Не удалось загрузить данные NASA. Попробуйте обновить страницу позже.');
+        setError('Failed to load NASA data. Please try refreshing the page later.');
       } finally {
       setLoading(false);
       }
@@ -37,7 +37,7 @@ const NASA = () => {
   if (loading) {
     return (
       <div className="py-10 text-center text-gold-100">
-        🚀 Загрузка данных NASA...
+        🚀 Loading NASA data...
       </div>
     );
   }
@@ -52,8 +52,8 @@ const NASA = () => {
           Deep Space Insights
         </h1>
         <p className="mt-4 mx-auto max-w-2xl text-sm md:text-base text-gold-100/75">
-          Подборка актуальных данных NASA: астрономическая картинка дня и астероиды,
-          проходящие вблизи Земли.
+          A collection of current NASA data: the Astronomy Picture of the Day and
+          near-Earth asteroids.
         </p>
       </section>
 
@@ -67,7 +67,7 @@ const NASA = () => {
       {apod && (
         <section className="mb-10 rounded-2xl border border-gold-500/60 bg-black/40 p-6 shadow-[0_0_40px_rgba(0,0,0,0.8)] backdrop-blur-sm">
           <h2 className="text-xl font-semibold tracking-wide text-gold-100 mb-3">
-            📸 Астрономическая картинка дня
+            📸 Astronomy Picture of the Day
           </h2>
           <p className="text-xs text-gold-200/70 mb-3">{apod.date}</p>
             {apod.media_type === 'image' && (
@@ -87,11 +87,11 @@ const NASA = () => {
       {/* Near Earth Objects */}
       <section>
         <h2 className="mb-4 text-xl font-semibold tracking-wide text-gold-100">
-          ☄️ Астероиды рядом с Землей
+          ☄️ Near-Earth Asteroids
         </h2>
         {asteroids.length === 0 ? (
           <p className="text-sm text-gold-100/70">
-            Данные об астероидах недоступны.
+            Asteroid data is unavailable.
           </p>
         ) : (
           <div className="grid gap-4 md:grid-cols-2">
@@ -108,14 +108,14 @@ const NASA = () => {
                   {asteroid.name}
                 </h4>
                 <p className="text-gold-100/80">
-                  📏 Диаметр: ~{asteroid.diameter_km?.toFixed(2)} км
+                  📏 Diameter: ~{asteroid.diameter_km?.toFixed(2)} km
                 </p>
                 <p className="text-gold-100/80">
-                  📅 Сближение: {asteroid.close_approach_date}
+                  📅 Close approach: {asteroid.close_approach_date}
                 </p>
                 {asteroid.is_potentially_hazardous && (
                   <span className="mt-2 inline-block rounded-full bg-red-500 px-3 py-1 text-[0.75rem] font-medium text-white">
-                    ⚠️ Потенциально опасный
+                    ⚠️ Potentially hazardous
                   </span>
                 )}
               </div>

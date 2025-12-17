@@ -21,7 +21,7 @@ const Register = () => {
     e.preventDefault();
     
     if (formData.password !== formData.confirmPassword) {
-      setMessage('❌ Пароли не совпадают');
+      setMessage('❌ Passwords do not match');
       return;
     }
 
@@ -42,134 +42,54 @@ const Register = () => {
       const data = await response.json();
       
       if (response.ok) {
-        setMessage('✅ Регистрация успешна! Теперь можете войти.');
+        setMessage('✅ Registration successful! You can now sign in.');
         setFormData({ username: '', email: '', password: '', confirmPassword: '' });
       } else {
-        setMessage('❌ ' + (data.detail || 'Ошибка регистрации'));
+        setMessage('❌ ' + (data.detail || 'Registration error'));
       }
     } catch (error) {
-      setMessage('❌ Ошибка соединения с сервером');
+      setMessage('❌ Connection error');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div style={{ maxWidth: '400px', margin: '0 auto', padding: '40px 20px' }}>
-      <div style={{ background: 'rgba(255,255,255,0.1)', padding: '30px', borderRadius: '15px', backdropFilter: 'blur(10px)' }}>
-        <h2 style={{ textAlign: 'center', marginBottom: '30px', fontSize: '1.8rem' }}>🌟 Регистрация</h2>
-        
+    <main className="relative mx-auto max-w-md px-6 py-16">
+      <section className="mb-6 text-center">
+        <p className="text-xs tracking-[0.3em] uppercase text-gold-300/80">Account</p>
+        <h1 className="mt-3 text-3xl font-semibold tracking-[0.12em] text-gold-100">Register</h1>
+        <p className="mt-2 text-sm text-gold-100/75">Create an account to save favorites and follow events.</p>
+      </section>
+
+      <div className="mx-auto rounded-2xl border border-gold-500/40 bg-black/40 px-6 py-8">
         {message && (
-          <div style={{ 
-            padding: '10px', 
-            marginBottom: '20px', 
-            borderRadius: '8px', 
-            background: message.includes('✅') ? 'rgba(34, 197, 94, 0.2)' : 'rgba(239, 68, 68, 0.2)',
-            textAlign: 'center'
-          }}>
+          <div className={`mb-4 rounded-lg px-4 py-2 text-center ${message.includes('✅') ? 'bg-green-900/30 text-green-200' : 'bg-red-900/30 text-red-300'}`}>
             {message}
           </div>
         )}
-        
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          <div>
-            <label style={{ display: 'block', marginBottom: '8px', opacity: 0.8 }}>Имя пользователя</label>
-            <input 
-              type="text" 
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-              required
-              style={{ 
-                width: '100%', 
-                padding: '12px', 
-                borderRadius: '8px', 
-                border: '1px solid rgba(255,255,255,0.3)', 
-                background: 'rgba(0,0,0,0.3)', 
-                color: 'white' 
-              }} 
-            />
-          </div>
 
-          <div>
-            <label style={{ display: 'block', marginBottom: '8px', opacity: 0.8 }}>Email</label>
-            <input 
-              type="email" 
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              style={{ 
-                width: '100%', 
-                padding: '12px', 
-                borderRadius: '8px', 
-                border: '1px solid rgba(255,255,255,0.3)', 
-                background: 'rgba(0,0,0,0.3)', 
-                color: 'white' 
-              }} 
-            />
-          </div>
-          
-          <div>
-            <label style={{ display: 'block', marginBottom: '8px', opacity: 0.8 }}>Пароль</label>
-            <input 
-              type="password" 
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-              style={{ 
-                width: '100%', 
-                padding: '12px', 
-                borderRadius: '8px', 
-                border: '1px solid rgba(255,255,255,0.3)', 
-                background: 'rgba(0,0,0,0.3)', 
-                color: 'white' 
-              }} 
-            />
-          </div>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+          <label className="text-sm text-gold-200/80">Username</label>
+          <input name="username" value={formData.username} onChange={handleChange} required className="w-full rounded-md border border-gold-500/30 bg-black/30 px-3 py-2 text-gold-100" />
 
-          <div>
-            <label style={{ display: 'block', marginBottom: '8px', opacity: 0.8 }}>Подтвердите пароль</label>
-            <input 
-              type="password" 
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              required
-              style={{ 
-                width: '100%', 
-                padding: '12px', 
-                borderRadius: '8px', 
-                border: '1px solid rgba(255,255,255,0.3)', 
-                background: 'rgba(0,0,0,0.3)', 
-                color: 'white' 
-              }} 
-            />
-          </div>
-          
-          <button 
-            type="submit" 
-            disabled={loading}
-            style={{ 
-              background: loading ? '#666' : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', 
-              color: 'white', 
-              padding: '12px', 
-              borderRadius: '8px', 
-              border: 'none', 
-              fontSize: '1rem', 
-              cursor: loading ? 'not-allowed' : 'pointer' 
-            }}
-          >
-            {loading ? '⏳ Регистрация...' : 'Зарегистрироваться'}
+          <label className="text-sm text-gold-200/80">Email</label>
+          <input name="email" type="email" value={formData.email} onChange={handleChange} required className="w-full rounded-md border border-gold-500/30 bg-black/30 px-3 py-2 text-gold-100" />
+
+          <label className="text-sm text-gold-200/80">Password</label>
+          <input name="password" type="password" value={formData.password} onChange={handleChange} required className="w-full rounded-md border border-gold-500/30 bg-black/30 px-3 py-2 text-gold-100" />
+
+          <label className="text-sm text-gold-200/80">Confirm password</label>
+          <input name="confirmPassword" type="password" value={formData.confirmPassword} onChange={handleChange} required className="w-full rounded-md border border-gold-500/30 bg-black/30 px-3 py-2 text-gold-100" />
+
+          <button type="submit" disabled={loading} className={`mt-2 rounded-md px-4 py-2 text-white ${loading ? 'bg-gray-600' : 'bg-gradient-to-r from-cosmic-400 to-cosmic-600'}`}>
+            {loading ? '⏳ Registering...' : 'Register'}
           </button>
         </form>
-        
-        <p style={{ textAlign: 'center', marginTop: '20px', opacity: 0.7 }}>
-          Уже есть аккаунт? <a href="/login" style={{ color: '#667eea' }}>Войти</a>
-        </p>
+
+        <p className="mt-4 text-center text-sm text-gold-100/70">Already have an account? <a href="/login" className="text-cosmic-400">Sign in</a></p>
       </div>
-    </div>
+    </main>
   );
 };
 

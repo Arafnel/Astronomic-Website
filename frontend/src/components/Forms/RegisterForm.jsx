@@ -36,7 +36,7 @@ const RegisterForm = () => {
           Sign Up
         </h2>
         <p className="mt-3 text-[0.85rem] text-gold-100/75">
-          Создайте аккаунт, чтобы сохранять любимые объекты и события.
+          Create an account to save favorite objects and events.
         </p>
       </header>
 
@@ -55,14 +55,14 @@ const RegisterForm = () => {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
             <label className="mb-2 block text-xs font-medium uppercase tracking-[0.18em] text-gold-200/80">
-              Имя пользователя
+              Username
             </label>
             <input
               type="text"
               className="input-field w-full"
               {...register('username', { 
-                required: 'Обязательное поле',
-                minLength: { value: 3, message: 'Минимум 3 символа' }
+                required: 'Required',
+                minLength: { value: 3, message: 'Minimum 3 characters' }
               })}
             />
             {errors.username && (
@@ -78,8 +78,8 @@ const RegisterForm = () => {
               type="email"
               className="input-field w-full"
               {...register('email', { 
-                required: 'Обязательное поле',
-                pattern: { value: /^\S+@\S+$/i, message: 'Неверный формат email' }
+                required: 'Required',
+                pattern: { value: /^\S+@\S+$/i, message: 'Invalid email format' }
               })}
             />
             {errors.email && (
@@ -89,14 +89,14 @@ const RegisterForm = () => {
 
           <div>
             <label className="mb-2 block text-xs font-medium uppercase tracking-[0.18em] text-gold-200/80">
-              Пароль
+              Password
             </label>
             <input
               type="password"
               className="input-field w-full"
               {...register('password', { 
-                required: 'Обязательное поле',
-                minLength: { value: 6, message: 'Минимум 6 символов' }
+                required: 'Required',
+                minLength: { value: 6, message: 'Minimum 6 characters' }
               })}
             />
             {errors.password && (
@@ -106,14 +106,14 @@ const RegisterForm = () => {
 
           <div>
             <label className="mb-2 block text-xs font-medium uppercase tracking-[0.18em] text-gold-200/80">
-              Подтвердите пароль
+              Confirm password
             </label>
             <input
               type="password"
               className="input-field w-full"
               {...register('confirmPassword', { 
-                required: 'Обязательное поле',
-                validate: value => value === password || 'Пароли не совпадают'
+                required: 'Required',
+                validate: value => value === password || 'Passwords do not match'
               })}
             />
             {errors.confirmPassword && (
@@ -126,14 +126,14 @@ const RegisterForm = () => {
             disabled={loading}
             className="btn-primary flex w-full items-center justify-center text-sm tracking-[0.18em] uppercase disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {loading ? <LoadingSpinner size="sm" /> : 'Зарегистрироваться'}
+            {loading ? <LoadingSpinner size="sm" /> : 'Register'}
           </button>
         </form>
 
         <p className="mt-6 text-center text-[0.78rem] text-gold-100/65">
-          Уже есть аккаунт?{' '}
+          Already have an account?{' '}
           <Link to="/login" className="text-cosmic-300 hover:text-cosmic-200">
-            Войти
+            Login
           </Link>
         </p>
     </div>

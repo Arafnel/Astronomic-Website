@@ -12,7 +12,7 @@ const Favorites = () => {
   const loadFavorites = async () => {
     const token = localStorage.getItem('token');
     if (!token) {
-      setMessage('❌ Войдите в систему для просмотра избранного');
+      setMessage('❌ Please sign in to view favorites');
       setLoading(false);
       return;
     }
@@ -28,10 +28,10 @@ const Favorites = () => {
         const data = await response.json();
         setFavorites(data);
       } else {
-        setMessage('❌ Ошибка загрузки избранного');
+        setMessage('❌ Error loading favorites');
       }
     } catch (err) {
-      setMessage('❌ Ошибка соединения');
+      setMessage('❌ Connection error');
     } finally {
       setLoading(false);
     }
@@ -48,71 +48,54 @@ const Favorites = () => {
       });
 
       if (response.ok) {
-        setMessage('✅ Удалено из избранного');
+        setMessage('✅ Removed from favorites');
         loadFavorites(); // Перезагружаем список
       } else {
-        setMessage('❌ Ошибка удаления');
+        setMessage('❌ Error removing');
       }
       setTimeout(() => setMessage(''), 3000);
     } catch (err) {
-      setMessage('❌ Ошибка соединения');
+      setMessage('❌ Connection error');
       setTimeout(() => setMessage(''), 3000);
     }
   };
 
-  if (loading) return <div style={{ padding: '20px', textAlign: 'center' }}>⏳ Загрузка...</div>;
+  if (loading) return <div className="py-10 text-center text-gold-100">⏳ Loading...</div>;
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h1 style={{ fontSize: '2.5rem', marginBottom: '20px' }}>⭐ Избранные объекты</h1>
-      
+    <main className="relative mx-auto max-w-6xl px-6 py-16">
+      <section className="mb-8 text-center">
+        <p className="text-xs tracking-[0.3em] uppercase text-gold-300/80">Your</p>
+        <h1 className="mt-3 text-4xl md:text-5xl font-semibold tracking-[0.18em] text-gold-100">Favorites</h1>
+        <p className="mt-4 mx-auto max-w-2xl text-sm md:text-base text-gold-100/75">Saved objects you've marked as favorites.</p>
+      </section>
+
       {message && (
-        <div style={{ 
-          padding: '10px', 
-          marginBottom: '20px', 
-          borderRadius: '8px', 
-          background: message.includes('✅') ? 'rgba(34, 197, 94, 0.2)' : 'rgba(239, 68, 68, 0.2)',
-          textAlign: 'center'
-        }}>
+        <div className={`mb-6 rounded-2xl border border-gold-500/40 px-6 py-3 text-center ${message.includes('✅') ? 'bg-green-900/30 text-green-200' : 'bg-red-900/30 text-red-300'}`}>
           {message}
         </div>
       )}
-      
+
       {favorites.length === 0 ? (
-        <div style={{ textAlign: 'center', padding: '40px' }}>
-          <p>Пока нет избранных объектов</p>
-          <p style={{ opacity: 0.7 }}>Добавьте объекты в избранное на странице каталога</p>
+        <div className="rounded-2xl border border-gold-500/40 bg-black/40 px-6 py-10 text-center text-sm text-gold-100/75">
+          <p>No favorites yet</p>
+          <p className="opacity-70 mt-2">Add objects to favorites from the catalog page</p>
         </div>
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
+        <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {favorites.map(fav => (
-            <div key={fav.id} style={{ background: 'rgba(255,255,255,0.1)', padding: '20px', borderRadius: '10px' }}>
-              <h3>{fav.astronomic_object?.name || 'Неизвестный объект'}</h3>
-              <p>{fav.astronomic_object?.short_description || fav.astronomic_object?.description || 'Нет описания'}</p>
-              <div style={{ marginTop: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ background: '#667eea', padding: '5px 10px', borderRadius: '15px', fontSize: '0.8rem' }}>
-                  {fav.astronomic_object?.type || 'unknown'}
-                </span>
-                <button 
-                  onClick={() => removeFavorite(fav.object_id)}
-                  style={{
-                    background: '#ff6b6b',
-                    color: 'white',
-                    border: 'none',
-                    padding: '5px 10px',
-                    borderRadius: '5px',
-                    cursor: 'pointer',
-                    fontSize: '0.8rem'
-                  }}
-                >
-                  Удалить
-                </button>
+            <div key={fav.id} className="rounded-2xl border border-gold-500/30 bg-black/40 p-4 shadow-[0_0_40px_rgba(0,0,0,0.6)]">
+              <h3 className="text-lg font-semibold text-gold-100">{fav.astronomic_object?.name || 'Unknown object'}</h3>
+              <p className="mt-2 text-sm text-gold-100/75">{fav.astronomic_object?.short_description || fav.astronomic_object?.description || 'No description'}</p>
+              <div className="mt-4 flex items-center justify-between">
+                <span className="rounded-full bg-gold-800/20 px-3 py-1 text-xs text-gold-200">{fav.astronomic_object?.type || 'unknown'}</span>
+                <button onClick={() => removeFavorite(fav.object_id)} className="rounded-md bg-rose-500 px-3 py-1 text-sm text-white">Remove</button>
               </div>
             </div>
           ))}
-        </div>
+        </section>
       )}
-    </div>
+    </main>
   );
 };
 

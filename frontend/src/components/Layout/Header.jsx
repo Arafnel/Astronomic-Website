@@ -23,37 +23,37 @@ const Header = () => {
 
           <nav className="hidden md:flex items-center space-x-6">
             <Link to="/" className={`nav-link ${isActive('/') ? 'active' : ''}`}>
-              Главная
+              Home
             </Link>
             <Link to="/objects" className={`nav-link ${isActive('/objects') ? 'active' : ''}`}>
-              Объекты
+              Objects
             </Link>
             <Link to="/events" className={`nav-link ${isActive('/events') ? 'active' : ''}`}>
-              События
+              Events
             </Link>
             {user && (
-              <Link to="/favorites" className={`nav-link ${isActive('/favorites') ? 'active' : ''}`}>
-                Избранное
+                <Link to="/favorites" className={`nav-link ${isActive('/favorites') ? 'active' : ''}`}>
+                Favorites
               </Link>
             )}
           </nav>
 
           <div className="flex items-center space-x-4">
             {user ? (
-              <div className="flex items-center space-x-3">
-                <span className="text-sm text-space-300">Привет, {user.username}!</span>
+                <div className="flex items-center space-x-3">
+                <span className="text-sm text-space-300">Hi, {user.username}!</span>
                 <button
                   onClick={logout}
                   className="flex items-center space-x-1 text-space-300 hover:text-white transition-colors"
                 >
                   <LogOut className="h-4 w-4" />
-                  <span className="hidden sm:inline">Выйти</span>
+                  <span className="hidden sm:inline">Logout</span>
                 </button>
               </div>
             ) : (
-              <div className="flex items-center space-x-3">
-                <Link to="/login" className="nav-link">Войти</Link>
-                <Link to="/register" className="btn-primary text-sm px-4 py-2">Регистрация</Link>
+                <div className="flex items-center space-x-3">
+                <Link to="/login" className="nav-link">Login</Link>
+                <Link to="/register" className="btn-primary text-sm px-4 py-2">Register</Link>
               </div>
             )}
           </div>

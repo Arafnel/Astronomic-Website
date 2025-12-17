@@ -38,7 +38,7 @@ objects = [
         short_description="Ближайшая крупная галактика",
         distance_ly=2537000,
         magnitude=3.4,
-        image_url="https://upload.wikimedia.org/wikipedia/commons/0/0c/GalaxieAndomede.jpg"
+        image_url="https://cdn.eso.org/images/medium/eso0604a.jpg"
     ),
     AstronomicObject(
         name="Галактика Треугольника (M33)",
@@ -46,7 +46,7 @@ objects = [
         short_description="Третья крупная галактика в Местной группе",
         distance_ly=3000000,
         magnitude=5.7,
-        image_url="https://upload.wikimedia.org/wikipedia/commons/f/f8/M33_data.jpg"
+        image_url="https://cdn.eso.org/images/medium/eso0738a.jpg"
     ),
     AstronomicObject(
         name="Галактика Боде (M81)",
@@ -54,7 +54,7 @@ objects = [
         short_description="Спиральная галактика в Большой Медведице",
         distance_ly=12000000,
         magnitude=6.9,
-        image_url="https://upload.wikimedia.org/wikipedia/commons/8/82/M81_NASA.jpg"
+        image_url="https://cdn.eso.org/images/medium/eso1032a.jpg"
     ),
     AstronomicObject(
         name="Галактика Девы (M87)",
@@ -62,7 +62,7 @@ objects = [
         short_description="Эллиптическая галактика с чёрной дырой",
         distance_ly=53000000,
         magnitude=8.6,
-        image_url="https://upload.wikimedia.org/wikipedia/commons/6/63/M87_jet.jpg"
+        image_url="https://cdn.eso.org/images/medium/eso2208a.jpg"
     ),
     AstronomicObject(
         name="Галактика Сомбреро (M104)",
@@ -70,7 +70,7 @@ objects = [
         short_description="Спиральная галактика в созвездии Дева",
         distance_ly=29000000,
         magnitude=8.0,
-        image_url="https://upload.wikimedia.org/wikipedia/commons/2/27/Sombrero_Galaxy_Hubble.jpg"
+        image_url="https://cdn.eso.org/images/medium/eso0820a.jpg"
     ),
     
     # Туманности
@@ -81,7 +81,7 @@ objects = [
         distance_ly=1344,
         magnitude=4.0,
         constellation_id=1,
-        image_url="https://upload.wikimedia.org/wikipedia/commons/4/4a/Orion_Nebula_-_Hubble_2006_Full_res.jpg"
+        image_url="https://cdn.eso.org/images/medium/eso0205a.jpg"
     ),
     AstronomicObject(
         name="Кольцевая туманность (M57)",
@@ -89,7 +89,7 @@ objects = [
         short_description="Планетарная туманность в Лире",
         distance_ly=2300,
         magnitude=8.8,
-        image_url="https://upload.wikimedia.org/wikipedia/commons/c/cb/Messier_57.jpg"
+        image_url="https://cdn.eso.org/images/medium/eso0144a.jpg"
     ),
     AstronomicObject(
         name="Крабовидная туманность (M1)",
@@ -98,7 +98,7 @@ objects = [
         distance_ly=6500,
         magnitude=8.4,
         constellation_id=3,
-        image_url="https://upload.wikimedia.org/wikipedia/commons/0/00/Crab_Nebula.jpg"
+        image_url="https://cdn.eso.org/images/medium/eso0609a.jpg"
     ),
     AstronomicObject(
         name="Туманность Северная Америка",
@@ -106,7 +106,7 @@ objects = [
         short_description="Эмиссионная туманность в Лебеде",
         distance_ly=2590,
         magnitude=4.0,
-        image_url="https://upload.wikimedia.org/wikipedia/commons/8/8e/North_america_nebula_map.jpg"
+        image_url="https://cdn.eso.org/images/medium/eso1318a.jpg"
     ),
     AstronomicObject(
         name="Туманность Орел (M16)",
@@ -114,7 +114,7 @@ objects = [
         short_description="Звездообразующая туманность",
         distance_ly=7000,
         magnitude=6.0,
-        image_url="https://upload.wikimedia.org/wikipedia/commons/6/68/Pillars_of_creation_2015_04_HST_WFC3-UVIS_full_res_denoised.jpg"
+        image_url="https://cdn.eso.org/images/medium/eso9901a.jpg"
     ),
     
     # Звезды
@@ -124,7 +124,7 @@ objects = [
         short_description="Ярчайшая звезда ночного неба",
         distance_ly=8.6,
         magnitude=-1.46,
-        image_url="https://upload.wikimedia.org/wikipedia/commons/4/4a/Sirius_A_and_Sirius_B_Hubble_photograph.jpg"
+        image_url="https://cdn.eso.org/images/medium/eso0936a.jpg"
     ),
     AstronomicObject(
         name="Канопус (Альфа Киля)",
@@ -132,7 +132,7 @@ objects = [
         short_description="Вторая по яркости звезда",
         distance_ly=310,
         magnitude=-0.74,
-        image_url="https://upload.wikimedia.org/wikipedia/commons/8/8e/Canopus_location.jpg"
+        image_url="https://images.pexels.com/photos/87651/earth-blue-planet-globe-planet-87651.jpeg"
     ),
     AstronomicObject(
         name="Ригель (Бета Ориона)",
@@ -141,7 +141,7 @@ objects = [
         distance_ly=860,
         magnitude=0.13,
         constellation_id=1,
-        image_url="https://upload.wikimedia.org/wikipedia/commons/4/4a/Rigel_star.jpg"
+        image_url="https://cdn.eso.org/images/medium/eso0936a.jpg"
     ),
     AstronomicObject(
         name="Вега (Альфа Лиры)",
@@ -149,7 +149,7 @@ objects = [
         short_description="Третья по яркости звезда",
         distance_ly=25,
         magnitude=0.03,
-        image_url="https://upload.wikimedia.org/wikipedia/commons/1/14/Vega.jpg"
+        image_url="https://cdn.eso.org/images/medium/eso0840a.jpg"
     ),
     AstronomicObject(
         name="Бетельгейзе (Альфа Ориона)",
@@ -158,7 +158,7 @@ objects = [
         distance_ly=640,
         magnitude=0.50,
         constellation_id=1,
-        image_url="https://upload.wikimedia.org/wikipedia/commons/c/c7/Betelgeuse_in_near_infrared.jpg"
+        image_url="https://cdn.eso.org/images/medium/eso2108a.jpg"
     ),
     AstronomicObject(
         name="Полярная звезда (Альфа Малой Медведицы)",
@@ -167,7 +167,7 @@ objects = [
         distance_ly=433,
         magnitude=1.98,
         constellation_id=2,
-        image_url="https://upload.wikimedia.org/wikipedia/commons/6/65/Polaris_Aa-Ab.jpg"
+        image_url="https://cdn.eso.org/images/medium/eso1525a.jpg"
     ),
     
     # Звездные скопления
@@ -177,7 +177,7 @@ objects = [
         short_description="Открытое звёздное скопление",
         distance_ly=444,
         magnitude=1.6,
-        image_url="https://upload.wikimedia.org/wikipedia/commons/1/1f/Pleiades_large.jpg"
+        image_url="https://cdn.eso.org/images/medium/eso0151a.jpg"
     ),
     AstronomicObject(
         name="Геркулес (M13)",
@@ -185,7 +185,7 @@ objects = [
         short_description="Шаровое звёздное скопление",
         distance_ly=25100,
         magnitude=5.8,
-        image_url="https://upload.wikimedia.org/wikipedia/commons/a/a8/Messier_13.jpg"
+        image_url="https://cdn.eso.org/images/medium/eso0917a.jpg"
     ),
     AstronomicObject(
         name="M22 (Стрелец)",
@@ -193,7 +193,7 @@ objects = [
         short_description="Шаровое звёздное скопление",
         distance_ly=10400,
         magnitude=5.1,
-        image_url="https://upload.wikimedia.org/wikipedia/commons/d/d4/M22_Messier_22.jpg"
+        image_url="https://cdn.eso.org/images/medium/eso0311a.jpg"
     ),
     
     # Планеты
@@ -203,7 +203,7 @@ objects = [
         short_description="Самая большая планета Солнечной системы",
         distance_ly=0.000083,
         magnitude=-2.94,
-        image_url="https://upload.wikimedia.org/wikipedia/commons/2/2b/Jupiter_and_its_shrunken_Great_Red_Spot.jpg"
+        image_url="https://images.unsplash.com/photo-1446776653964-20c1d3a81b06"
     ),
     AstronomicObject(
         name="Сатурн",
@@ -211,7 +211,7 @@ objects = [
         short_description="Планета с кольцами",
         distance_ly=0.000151,
         magnitude=0.46,
-        image_url="https://upload.wikimedia.org/wikipedia/commons/c/c7/Saturn_during_Equinox.jpg"
+        image_url="https://images.unsplash.com/photo-1446776877081-d282a0f896e2"
     ),
     AstronomicObject(
         name="Марс",
@@ -219,7 +219,7 @@ objects = [
         short_description="Красная планета",
         distance_ly=0.000024,
         magnitude=-2.6,
-        image_url="https://upload.wikimedia.org/wikipedia/commons/0/02/OSIRIS_Mars_true_color.jpg"
+        image_url="https://images.unsplash.com/photo-1446776653964-20c1d3a81b06"
     ),
     AstronomicObject(
         name="Венера",
@@ -227,7 +227,7 @@ objects = [
         short_description="Самая горячая планета",
         distance_ly=0.000004,
         magnitude=-4.6,
-        image_url="https://upload.wikimedia.org/wikipedia/commons/e/e5/Venus-real_color.jpg"
+        image_url="https://images.unsplash.com/photo-1419242902214-272b3f66ee7a"
     ),
     
     # Чёрные дыры
@@ -237,7 +237,7 @@ objects = [
         short_description="Сверхмассивная чёрная дыра в центре Млечного Пути",
         distance_ly=26000,
         magnitude=0,
-        image_url="https://upload.wikimedia.org/wikipedia/commons/1/1f/EHT_Sgr_A%2a_cropped.jpg"
+        image_url="https://cdn.eso.org/images/medium/eso2208a.jpg"
     ),
     AstronomicObject(
         name="M87* (Черная дыра в M87)",
@@ -245,7 +245,7 @@ objects = [
         short_description="Первая сфотографированная чёрная дыра",
         distance_ly=53000000,
         magnitude=0,
-        image_url="https://upload.wikimedia.org/wikipedia/commons/3/3a/Event_Horizon_Telescope_-_Sagittarius_A%2a_crop.jpg"
+        image_url="https://cdn.eso.org/images/medium/eso1907a.jpg"
     ),
     AstronomicObject(
         name="Cygnus X-1",
@@ -253,7 +253,7 @@ objects = [
         short_description="Первая открытая чёрная дыра",
         distance_ly=7200,
         magnitude=8.95,
-        image_url="https://upload.wikimedia.org/wikipedia/commons/7/7e/Cygnus_X-1_system_diagram.jpg"
+        image_url="https://cdn.eso.org/images/medium/eso1328a.jpg"
     ),
     
     # Кометы
@@ -263,7 +263,7 @@ objects = [
         short_description="Периодическая комета",
         distance_ly=0.000006,
         magnitude=28.2,
-        image_url="https://upload.wikimedia.org/wikipedia/commons/0/00/Halley%27s_Comet_1910.jpg"
+        image_url="https://cdn.eso.org/images/medium/eso0932a.jpg"
     ),
     AstronomicObject(
         name="Комета Хейала-Боппа",
@@ -271,7 +271,7 @@ objects = [
         short_description="Яркая комета, видна невооружённым глазом",
         distance_ly=0.000014,
         magnitude=-1.8,
-        image_url="https://upload.wikimedia.org/wikipedia/commons/5/55/Hale_Bopp_in_1997.jpg"
+        image_url="https://cdn.eso.org/images/medium/eso9701a.jpg"
     ),
     
     # Пульсары
@@ -281,7 +281,7 @@ objects = [
         short_description="Первый открытый пульсар",
         distance_ly=2283,
         magnitude=0,
-        image_url="https://upload.wikimedia.org/wikipedia/commons/b/b1/PSR_B1919%2B21_Pulsar.jpg"
+        image_url="https://cdn.eso.org/images/medium/eso0609a.jpg"
     ),
     AstronomicObject(
         name="Пульсар в Крабовидной туманности",
@@ -290,7 +290,7 @@ objects = [
         distance_ly=6500,
         magnitude=16.5,
         constellation_id=3,
-        image_url="https://upload.wikimedia.org/wikipedia/commons/0/00/Crab_Nebula.jpg"
+        image_url="https://cdn.eso.org/images/medium/eso0609a.jpg"
     ),
     
     # Экзопланеты
@@ -300,7 +300,7 @@ objects = [
         short_description="Экзопланета в системе ближайшей звезды",
         distance_ly=4.24,
         magnitude=0,
-        image_url="https://upload.wikimedia.org/wikipedia/commons/f/f3/Proxima_Centauri_b_-_2020.jpg"
+        image_url="https://cdn.eso.org/images/medium/eso1713a.jpg"
     ),
     AstronomicObject(
         name="Kepler-452b (Земля 2.0)",
@@ -308,7 +308,7 @@ objects = [
         short_description="Потенциально обитаемая экзопланета",
         distance_ly=1402,
         magnitude=0,
-        image_url="https://upload.wikimedia.org/wikipedia/commons/7/77/Kepler-452b_illustration.jpg"
+        image_url="https://cdn.eso.org/images/medium/eso1724a.jpg"
     ),
     AstronomicObject(
         name="TRAPPIST-1e",
@@ -316,7 +316,7 @@ objects = [
         short_description="Экзопланета в обитаемой зоне",
         distance_ly=40,
         magnitude=0,
-        image_url="https://upload.wikimedia.org/wikipedia/commons/8/83/TRAPPIST-1e_Illustration.jpg"
+        image_url="https://cdn.eso.org/images/medium/eso1706a.jpg"
     )
 ]
 

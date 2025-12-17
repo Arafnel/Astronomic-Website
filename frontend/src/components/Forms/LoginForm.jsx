@@ -18,7 +18,7 @@ const LoginForm = () => {
       await login(data);
       navigate('/');
     } catch (err) {
-      setError('Неверные учетные данные');
+      setError('Invalid credentials');
     } finally {
       setLoading(false);
     }
@@ -28,7 +28,7 @@ const LoginForm = () => {
     <div className="max-w-md mx-auto">
       <div className="card">
         <h2 className="text-2xl font-bold text-center mb-6 bg-cosmic-gradient bg-clip-text text-transparent">
-          Вход в AstrumAtlas
+          Login to AstrumAtlas
         </h2>
 
         {error && (
@@ -40,12 +40,12 @@ const LoginForm = () => {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-space-300 mb-2">
-              Имя пользователя
+              Username
             </label>
             <input
               type="text"
               className="input-field w-full"
-              {...register('username', { required: 'Обязательное поле' })}
+              {...register('username', { required: 'Required' })}
             />
             {errors.username && (
               <p className="text-red-400 text-sm mt-1">{errors.username.message}</p>
@@ -54,12 +54,12 @@ const LoginForm = () => {
 
           <div>
             <label className="block text-sm font-medium text-space-300 mb-2">
-              Пароль
+              Password
             </label>
             <input
               type="password"
               className="input-field w-full"
-              {...register('password', { required: 'Обязательное поле' })}
+              {...register('password', { required: 'Required' })}
             />
             {errors.password && (
               <p className="text-red-400 text-sm mt-1">{errors.password.message}</p>
@@ -71,14 +71,14 @@ const LoginForm = () => {
             disabled={loading}
             className="btn-primary w-full flex items-center justify-center"
           >
-            {loading ? <LoadingSpinner size="sm" /> : 'Войти'}
+            {loading ? <LoadingSpinner size="sm" /> : 'Login'}
           </button>
         </form>
 
         <p className="text-center text-space-400 mt-6">
-          Нет аккаунта?{' '}
+          Don't have an account?{' '}
           <Link to="/register" className="text-cosmic-400 hover:text-cosmic-300">
-            Зарегистрироваться
+            Register
           </Link>
         </p>
       </div>
