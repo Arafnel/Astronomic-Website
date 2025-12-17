@@ -21,13 +21,13 @@ const NASA = () => {
         const apodData = await apodRes.json();
         const neoData = await neoRes.json();
 
-        setApod(apodData);
-        setAsteroids(neoData.objects || []);
+      setApod(apodData);
+      setAsteroids(neoData.objects || []);
       } catch (err) {
-        console.error('NASA API error:', err);
+      console.error('NASA API error:', err);
         setError('Не удалось загрузить данные NASA. Попробуйте обновить страницу позже.');
       } finally {
-        setLoading(false);
+      setLoading(false);
       }
     };
 
@@ -62,7 +62,7 @@ const NASA = () => {
           {error}
         </div>
       )}
-
+      
       {/* Astronomy Picture of the Day */}
       {apod && (
         <section className="mb-10 rounded-2xl border border-gold-500/60 bg-black/40 p-6 shadow-[0_0_40px_rgba(0,0,0,0.8)] backdrop-blur-sm">
@@ -70,13 +70,13 @@ const NASA = () => {
             📸 Астрономическая картинка дня
           </h2>
           <p className="text-xs text-gold-200/70 mb-3">{apod.date}</p>
-          {apod.media_type === 'image' && (
-            <img
-              src={apod.url}
-              alt={apod.title}
+            {apod.media_type === 'image' && (
+              <img 
+                src={apod.url} 
+                alt={apod.title}
               className="mb-4 max-h-[400px] w-full rounded-xl object-cover"
-            />
-          )}
+              />
+            )}
           <h3 className="text-lg font-medium text-gold-100 mb-2">{apod.title}</h3>
           <p className="text-sm leading-relaxed text-gold-100/80">
             {apod.explanation}

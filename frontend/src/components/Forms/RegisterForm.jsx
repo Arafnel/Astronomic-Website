@@ -48,11 +48,11 @@ const RegisterForm = () => {
 
       {error && (
         <div className="mb-4 rounded-2xl border border-red-500/70 bg-red-500/10 px-4 py-3 text-sm text-red-100">
-          {error}
-        </div>
-      )}
+            {error}
+          </div>
+        )}
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
             <label className="mb-2 block text-xs font-medium uppercase tracking-[0.18em] text-gold-200/80">
               Имя пользователя

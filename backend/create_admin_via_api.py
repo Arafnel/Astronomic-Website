@@ -38,3 +38,4 @@ if __name__ == "__main__":
     print("   (Убедитесь, что бекенд запущен на http://localhost:8000)\n")
     create_admin()
 
+

@@ -9,7 +9,7 @@ const ObjectCard = ({ object, isFavorite = false, onFavoriteChange }) => {
 
   const handleFavoriteToggle = async () => {
     if (!user) return;
-
+    
     setLoading(true);
     try {
       if (isFavorite) {
@@ -66,7 +66,7 @@ const ObjectCard = ({ object, isFavorite = false, onFavoriteChange }) => {
             <span>{object.constellation.name}</span>
           </div>
         )}
-
+        
         {object.distance_ly && (
           <div className="flex items-center gap-2">
             <Ruler className="h-3 w-3" />

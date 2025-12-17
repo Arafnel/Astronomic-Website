@@ -54,7 +54,7 @@ const Events = () => {
           Подборка ближайших затмений, метеорных потоков и других небесных явлений.
         </p>
       </section>
-
+      
       {events.length === 0 ? (
         <div className="rounded-2xl border border-gold-500/40 bg-black/40 px-6 py-10 text-center text-sm text-gold-100/75">
           <p>Данные о событиях NASA недоступны.</p>

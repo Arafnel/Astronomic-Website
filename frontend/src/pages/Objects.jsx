@@ -6,19 +6,20 @@ const Objects = () => {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:8000/objects/')
+    fetch('http://localhost:8000/nasa/objects')
       .then(res => res.json())
       .then(data => {
-        setObjects(data);
+        setObjects(Array.isArray(data) ? data : []);
         setLoading(false);
       })
       .catch(err => {
         setMessage('Ошибка загрузки данных');
+        setObjects([]);
         setLoading(false);
       });
   }, []);
 
-  const toggleFavorite = async (objectId) => {
+  const toggleFavorite = async (obj) => {
     const token = localStorage.getItem('token');
     if (!token) {
       setMessage('❌ Войдите в систему для добавления в избранное');
@@ -27,7 +28,8 @@ const Objects = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:8000/favorites/${objectId}`, {
+      const nasaId = obj.nasa_id;
+      const response = await fetch(`http://localhost:8000/nasa/objects/${nasaId}/favorite`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -75,20 +77,27 @@ const Objects = () => {
           {objects.map(obj => (
             <div key={obj.id} style={{ background: 'rgba(255,255,255,0.1)', padding: '20px', borderRadius: '10px' }}>
               <h3>{obj.name}</h3>
-              <p>{obj.short_description || obj.description || 'Нет описания'}</p>
+              <p style={{ fontSize: '0.9rem', opacity: 0.8, marginTop: '10px' }}>
+                {obj.is_potentially_hazardous ? '⚠️ Потенциально опасный' : '✅ Безопасный'}
+              </p>
               <div style={{ marginTop: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
                   <span style={{ background: '#667eea', padding: '5px 10px', borderRadius: '15px', fontSize: '0.8rem' }}>
                     {obj.type}
                   </span>
-                  {obj.distance_ly && (
+                  {obj.diameter_km && (
                     <span style={{ marginLeft: '10px', opacity: 0.7, fontSize: '0.8rem' }}>
-                      📏 {obj.distance_ly} св.лет
+                      📏 {obj.diameter_km} км
+                    </span>
+                  )}
+                  {obj.magnitude && (
+                    <span style={{ marginLeft: '10px', opacity: 0.7, fontSize: '0.8rem' }}>
+                      ✨ {obj.magnitude}
                     </span>
                   )}
                 </div>
                 <button 
-                  onClick={() => toggleFavorite(obj.id)}
+                  onClick={() => toggleFavorite(obj)}
                   style={{
                     background: 'none',
                     border: 'none',
