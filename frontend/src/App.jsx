@@ -1,13 +1,21 @@
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import Home from './pages/Home';
 import Objects from './pages/Objects';
 import Events from './pages/Events';
 import NASA from './pages/NASA';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Favorites from './pages/Favorites';
 
 const Navigation = () => {
   const location = useLocation();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token);
+  }, [location]);
   
   const navStyle = {
     display: 'flex',
@@ -43,8 +51,26 @@ const Navigation = () => {
         <Link to="/objects" style={location.pathname === '/objects' ? activeLinkStyle : linkStyle}>Объекты</Link>
         <Link to="/events" style={location.pathname === '/events' ? activeLinkStyle : linkStyle}>События</Link>
         <Link to="/nasa" style={location.pathname === '/nasa' ? activeLinkStyle : linkStyle}>NASA</Link>
-        <Link to="/login" style={location.pathname === '/login' ? activeLinkStyle : linkStyle}>Вход</Link>
-        <Link to="/register" style={location.pathname === '/register' ? activeLinkStyle : linkStyle}>Регистрация</Link>
+        {isLoggedIn ? (
+          <>
+            <Link to="/favorites" style={location.pathname === '/favorites' ? activeLinkStyle : linkStyle}>Избранное</Link>
+            <button 
+              onClick={() => {
+                localStorage.removeItem('token');
+                setIsLoggedIn(false);
+                window.location.href = '/';
+              }}
+              style={linkStyle}
+            >
+              Выход
+            </button>
+          </>
+        ) : (
+          <>
+            <Link to="/login" style={location.pathname === '/login' ? activeLinkStyle : linkStyle}>Вход</Link>
+            <Link to="/register" style={location.pathname === '/register' ? activeLinkStyle : linkStyle}>Регистрация</Link>
+          </>
+        )}
       </div>
     </nav>
   );
@@ -62,6 +88,7 @@ function App() {
           <Route path="/nasa" element={<NASA />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/favorites" element={<Favorites />} />
         </Routes>
       </div>
     </Router>

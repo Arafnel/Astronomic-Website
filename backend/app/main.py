@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .routers import auth, objects, events, constellations, favorites, nasa
+from .database import Base, engine
+from .models import user, astronomic_object, event, constellation, favorite
 
 app = FastAPI(
     title="AstrumAtlas API",
@@ -8,9 +10,12 @@ app = FastAPI(
     version="1.0.0"
 )
 
+# Создаем таблицы при старте приложения (если их ещё нет)
+Base.metadata.create_all(bind=engine)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:5173"],
+    allow_origins=["*"],  # Разрешаем все origins для разработки
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

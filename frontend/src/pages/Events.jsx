@@ -7,23 +7,31 @@ const Events = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    console.log('Загружаем события...');
-    fetch('http://localhost:8000/events/')
-      .then(res => {
-        console.log('Ответ получен:', res.status);
+    const loadEvents = async () => {
+      try {
+        const res = await fetch('http://localhost:8000/nasa/neo');
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return res.json();
-      })
-      .then(data => {
-        console.log('Данные получены:', data);
-        setEvents(data);
+        const data = await res.json();
+        const neoEvents = (data.objects || []).map((a) => ({
+          id: a.name,
+          title: a.name,
+          date: a.close_approach_date,
+          type: 'asteroid_pass',
+          visibility: 'near_earth',
+          description: `Диаметр ~${a.diameter_km?.toFixed(2)} км. Потенциально опасный: ${
+            a.is_potentially_hazardous ? 'да' : 'нет'
+          }.`,
+        }));
+        setEvents(neoEvents);
+      } catch (err) {
+        console.error('Ошибка загрузки событий NASA:', err);
+        setError('Не удалось загрузить события NASA. Попробуйте обновить страницу позже.');
+      } finally {
         setLoading(false);
-      })
-      .catch(err => {
-        console.error('Ошибка:', err);
-        setError(`Ошибка: ${err.message}`);
-        setLoading(false);
-      });
+      }
+    };
+
+    loadEvents();
   }, []);
 
   const formatDate = (dateString) => {
@@ -49,10 +57,7 @@ const Events = () => {
 
       {events.length === 0 ? (
         <div className="rounded-2xl border border-gold-500/40 bg-black/40 px-6 py-10 text-center text-sm text-gold-100/75">
-          <p>Событий нет. Добавьте события через API.</p>
-          <p className="mt-2 text-[0.78rem] text-gold-200/60">
-            POST http://localhost:8000/events/
-          </p>
+          <p>Данные о событиях NASA недоступны.</p>
         </div>
       ) : (
         <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

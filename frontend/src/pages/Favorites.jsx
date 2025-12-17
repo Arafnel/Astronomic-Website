@@ -1,78 +1,114 @@
 import { useState, useEffect } from 'react';
-import { favoritesAPI } from '../api/favorites.jsx';
-import ObjectCard from '../components/UI/ObjectCard';
-import LoadingSpinner from '../components/UI/LoadingSpinner';
-import { Heart } from 'lucide-react';
-import { useAuth } from '../hooks/useAuth.jsx';
-import { Navigate } from 'react-router-dom';
 
 const Favorites = () => {
-  const { user } = useAuth();
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
-    if (user) {
-      loadFavorites();
-    }
-  }, [user]);
+    loadFavorites();
+  }, []);
 
   const loadFavorites = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      setMessage('❌ Войдите в систему для просмотра избранного');
+      setLoading(false);
+      return;
+    }
+
     try {
-      const response = await favoritesAPI.getFavorites();
-      setFavorites(response.data);
-    } catch (error) {
-      console.error('Error loading favorites:', error);
+      const response = await fetch('http://localhost:8000/favorites/', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setFavorites(data);
+      } else {
+        setMessage('❌ Ошибка загрузки избранного');
+      }
+    } catch (err) {
+      setMessage('❌ Ошибка соединения');
     } finally {
       setLoading(false);
     }
   };
 
-  if (!user) {
-    return <Navigate to="/login" replace />;
-  }
+  const removeFavorite = async (objectId) => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await fetch(`http://localhost:8000/favorites/${objectId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-64">
-        <LoadingSpinner size="lg" />
-      </div>
-    );
-  }
+      if (response.ok) {
+        setMessage('✅ Удалено из избранного');
+        loadFavorites(); // Перезагружаем список
+      } else {
+        setMessage('❌ Ошибка удаления');
+      }
+      setTimeout(() => setMessage(''), 3000);
+    } catch (err) {
+      setMessage('❌ Ошибка соединения');
+      setTimeout(() => setMessage(''), 3000);
+    }
+  };
+
+  if (loading) return <div style={{ padding: '20px', textAlign: 'center' }}>⏳ Загрузка...</div>;
 
   return (
-    <div className="space-y-8">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4 bg-cosmic-gradient bg-clip-text text-transparent">
-          Мои избранные объекты
-        </h1>
-        <p className="text-space-300 text-lg">
-          Ваша личная коллекция астрономических объектов
-        </p>
-      </div>
-
+    <div style={{ padding: '20px' }}>
+      <h1 style={{ fontSize: '2.5rem', marginBottom: '20px' }}>⭐ Избранные объекты</h1>
+      
+      {message && (
+        <div style={{ 
+          padding: '10px', 
+          marginBottom: '20px', 
+          borderRadius: '8px', 
+          background: message.includes('✅') ? 'rgba(34, 197, 94, 0.2)' : 'rgba(239, 68, 68, 0.2)',
+          textAlign: 'center'
+        }}>
+          {message}
+        </div>
+      )}
+      
       {favorites.length === 0 ? (
-        <div className="text-center py-16">
-          <Heart className="h-16 w-16 text-space-600 mx-auto mb-4" />
-          <h3 className="text-xl font-semibold text-space-300 mb-2">
-            Пока нет избранных объектов
-          </h3>
-          <p className="text-space-400 mb-6">
-            Добавляйте интересные объекты в избранное, чтобы они появились здесь
-          </p>
-          <a href="/objects" className="btn-primary">
-            Исследовать каталог
-          </a>
+        <div style={{ textAlign: 'center', padding: '40px' }}>
+          <p>Пока нет избранных объектов</p>
+          <p style={{ opacity: 0.7 }}>Добавьте объекты в избранное на странице каталога</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {favorites.map(favorite => (
-            <ObjectCard
-              key={favorite.id}
-              object={favorite.astronomic_object}
-              isFavorite={true}
-              onFavoriteChange={loadFavorites}
-            />
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
+          {favorites.map(fav => (
+            <div key={fav.id} style={{ background: 'rgba(255,255,255,0.1)', padding: '20px', borderRadius: '10px' }}>
+              <h3>{fav.astronomic_object?.name || 'Неизвестный объект'}</h3>
+              <p>{fav.astronomic_object?.short_description || fav.astronomic_object?.description || 'Нет описания'}</p>
+              <div style={{ marginTop: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ background: '#667eea', padding: '5px 10px', borderRadius: '15px', fontSize: '0.8rem' }}>
+                  {fav.astronomic_object?.type || 'unknown'}
+                </span>
+                <button 
+                  onClick={() => removeFavorite(fav.object_id)}
+                  style={{
+                    background: '#ff6b6b',
+                    color: 'white',
+                    border: 'none',
+                    padding: '5px 10px',
+                    borderRadius: '5px',
+                    cursor: 'pointer',
+                    fontSize: '0.8rem'
+                  }}
+                >
+                  Удалить
+                </button>
+              </div>
+            </div>
           ))}
         </div>
       )}

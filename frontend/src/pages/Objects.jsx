@@ -1,62 +1,110 @@
 import { useState, useEffect } from 'react';
-import ObjectCard from '../components/UI/ObjectCard.jsx';
-import { objectsAPI } from '../api/objects.jsx';
 
 const Objects = () => {
   const [objects, setObjects] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
-    const loadObjects = async () => {
-      try {
-        const response = await objectsAPI.getObjects();
-        setObjects(response.data || []);
-      } catch (err) {
-        console.error('Ошибка загрузки объектов:', err);
-        setError('Не удалось загрузить объекты. Попробуйте обновить страницу позже.');
-      } finally {
+    fetch('http://localhost:8000/objects/')
+      .then(res => res.json())
+      .then(data => {
+        setObjects(data);
         setLoading(false);
-      }
-    };
-
-    loadObjects();
+      })
+      .catch(err => {
+        setMessage('Ошибка загрузки данных');
+        setLoading(false);
+      });
   }, []);
 
-  if (loading) return <div className="py-10 text-center text-gold-100">⏳ Загрузка объектов...</div>;
-  if (error) return <div className="py-10 text-center text-red-400">{error}</div>;
+  const toggleFavorite = async (objectId) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      setMessage('❌ Войдите в систему для добавления в избранное');
+      setTimeout(() => setMessage(''), 3000);
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:8000/favorites/${objectId}`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (response.ok) {
+        setMessage('✅ Добавлено в избранное!');
+      } else {
+        const data = await response.json();
+        setMessage('❌ ' + (data.detail || 'Ошибка добавления в избранное'));
+      }
+      setTimeout(() => setMessage(''), 3000);
+    } catch (err) {
+      setMessage('❌ Ошибка соединения');
+      setTimeout(() => setMessage(''), 3000);
+    }
+  };
+
+  if (loading) return <div style={{ padding: '20px', textAlign: 'center' }}>⏳ Загрузка...</div>;
 
   return (
-    <main className="relative mx-auto max-w-6xl px-6 py-16">
-      <section className="mb-12 text-center">
-        <p className="text-xs tracking-[0.3em] uppercase text-gold-300/80">
-          Catalog
-        </p>
-        <h1 className="mt-3 text-4xl md:text-5xl font-semibold tracking-[0.18em] text-gold-100">
-          Featured Astronomic Objects
-        </h1>
-        <p className="mt-4 mx-auto max-w-2xl text-sm md:text-base text-gold-100/75">
-          Подборка ярких туманностей, звезд и галактик из вашего астрономического атласа.
-        </p>
-      </section>
-
+    <div style={{ padding: '20px' }}>
+      <h1 style={{ fontSize: '2.5rem', marginBottom: '20px' }}>🪐 Каталог объектов</h1>
+      
+      {message && (
+        <div style={{ 
+          padding: '10px', 
+          marginBottom: '20px', 
+          borderRadius: '8px', 
+          background: message.includes('✅') ? 'rgba(34, 197, 94, 0.2)' : 'rgba(239, 68, 68, 0.2)',
+          textAlign: 'center'
+        }}>
+          {message}
+        </div>
+      )}
+      
       {objects.length === 0 ? (
-        <div className="mx-auto rounded-2xl border border-gold-500/40 bg-black/40 px-6 py-10 text-center text-sm text-gold-100/75">
+        <div style={{ textAlign: 'center', padding: '40px' }}>
           <p>База данных пуста. Добавьте объекты через API.</p>
-          <p className="mt-2 text-[0.78rem] text-gold-200/60">
-            POST http://localhost:8000/objects/
-          </p>
+          <p style={{ opacity: 0.7, fontSize: '0.9rem' }}>POST http://localhost:8000/objects/</p>
         </div>
       ) : (
-        <section className="mx-auto grid max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:max-w-6xl xl:grid-cols-4">
-          {objects.map((obj) => (
-            <div key={obj.id} className="h-full">
-              <ObjectCard object={obj} />
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
+          {objects.map(obj => (
+            <div key={obj.id} style={{ background: 'rgba(255,255,255,0.1)', padding: '20px', borderRadius: '10px' }}>
+              <h3>{obj.name}</h3>
+              <p>{obj.short_description || obj.description || 'Нет описания'}</p>
+              <div style={{ marginTop: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div>
+                  <span style={{ background: '#667eea', padding: '5px 10px', borderRadius: '15px', fontSize: '0.8rem' }}>
+                    {obj.type}
+                  </span>
+                  {obj.distance_ly && (
+                    <span style={{ marginLeft: '10px', opacity: 0.7, fontSize: '0.8rem' }}>
+                      📏 {obj.distance_ly} св.лет
+                    </span>
+                  )}
+                </div>
+                <button 
+                  onClick={() => toggleFavorite(obj.id)}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    fontSize: '1.5rem',
+                    cursor: 'pointer',
+                    color: '#ff6b6b'
+                  }}
+                >
+                  ❤️
+                </button>
+              </div>
             </div>
           ))}
-        </section>
+        </div>
       )}
-    </main>
+    </div>
   );
 };
 
