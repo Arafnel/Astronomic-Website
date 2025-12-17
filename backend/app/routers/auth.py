@@ -9,7 +9,6 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 
 @router.post("/register", response_model=UserResponse)
 def register(user: UserCreate, db: Session = Depends(get_db)):
-    # Проверяем существует ли пользователь
     existing_user = db.query(User).filter(
         (User.email == user.email) | (User.username == user.username)
     ).first()
@@ -17,7 +16,6 @@ def register(user: UserCreate, db: Session = Depends(get_db)):
     if existing_user:
         raise HTTPException(status_code=400, detail="User already exists")
     
-    # Создаем нового пользователя
     hashed_password = get_password_hash(user.password)
     db_user = User(
         username=user.username,
@@ -31,13 +29,11 @@ def register(user: UserCreate, db: Session = Depends(get_db)):
 
 @router.post("/login", response_model=Token)
 def login(credentials: UserLogin, db: Session = Depends(get_db)):
-    # Находим пользователя
     user = db.query(User).filter(User.username == credentials.username).first()
     
     if not user or not verify_password(credentials.password, user.password_hash):
         raise HTTPException(status_code=401, detail="Invalid credentials")
     
-    # Создаем токен
     access_token = create_access_token(data={"sub": user.username})
     return {"access_token": access_token, "token_type": "bearer"}
 

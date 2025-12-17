@@ -7,10 +7,10 @@ class AstronomicObject(Base):
     
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, nullable=False, index=True)
-    type = Column(String, nullable=False)  # planet, star, galaxy, nebula
+    type = Column(String, nullable=False)
     short_description = Column(String)
     description = Column(Text)
-    distance_ly = Column(Float)  # distance in light years
+    distance_ly = Column(Float)
     magnitude = Column(Float)
     constellation_id = Column(Integer, ForeignKey("constellations.id"))
     image_url = Column(String)

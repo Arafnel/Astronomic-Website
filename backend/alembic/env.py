@@ -5,7 +5,6 @@ from alembic import context
 import os
 import sys
 
-# Add the app directory to the path
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 from app.database import Base

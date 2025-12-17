@@ -10,12 +10,11 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Создаем таблицы при старте приложения (если их ещё нет)
 Base.metadata.create_all(bind=engine)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Разрешаем все origins для разработки
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

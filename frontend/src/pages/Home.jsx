@@ -1,12 +1,12 @@
 const Home = () => {
   return (
     <main className="relative overflow-hidden">
-      {/* фон и декоративные элементы */}
+      
       <div className="hero-glow starfield absolute inset-0 opacity-70 pointer-events-none" />
       <div className="absolute -left-40 -bottom-40 h-80 w-80 rounded-full border border-gold-700/60 shadow-[0_0_120px_rgba(250,219,141,0.35)]" />
       <div className="absolute -right-32 top-10 h-72 w-72 rounded-full border border-gold-600/50" />
 
-      {/* контент */}
+      
       <section className="relative mx-auto flex min-h-[calc(100vh-5rem)] max-w-6xl flex-col items-center justify-center px-6 py-16 text-center md:items-start md:text-left">
         <div className="inline-flex items-center gap-3 rounded-full border border-gold-500/40 bg-black/40 px-4 py-2 text-xs tracking-[0.25em] uppercase text-gold-200 backdrop-blur">
           <span className="h-1.5 w-1.5 rounded-full bg-gold-400 shadow-[0_0_18px_rgba(243,210,138,0.9)]" />
@@ -24,7 +24,7 @@ const Home = () => {
         </p>
 
         <div className="mt-10 flex flex-col items-center gap-10 md:flex-row md:items-end md:gap-16">
-          {/* блок с числом объектов */}
+          
           <div className="relative">
             <div className="absolute -inset-6 rounded-3xl bg-gradient-to-br from-gold-500/25 via-transparent to-gold-700/10 blur-2xl" />
             <div className="relative rounded-3xl border border-gold-500/40 bg-black/40 px-10 py-8 text-left shadow-[0_0_40px_rgba(0,0,0,0.8)] backdrop-blur">
@@ -40,7 +40,7 @@ const Home = () => {
             </div>
           </div>
 
-          {/* вертикальный список "лун / разделов" */}
+          
           <div className="flex items-center gap-6 md:gap-10">
             <div className="flex flex-col gap-4">
               <span className="h-10 w-10 rounded-full border border-gold-400/60 bg-gradient-to-br from-gold-300/90 to-gold-600/80 shadow-[0_0_24px_rgba(243,210,138,0.9)]" />

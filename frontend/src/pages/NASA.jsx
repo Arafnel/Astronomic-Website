@@ -63,7 +63,7 @@ const NASA = () => {
         </div>
       )}
       
-      {/* Astronomy Picture of the Day */}
+      
       {apod && (
         <section className="mb-10 rounded-2xl border border-gold-500/60 bg-black/40 p-6 shadow-[0_0_40px_rgba(0,0,0,0.8)] backdrop-blur-sm">
           <h2 className="text-xl font-semibold tracking-wide text-gold-100 mb-3">
@@ -84,7 +84,7 @@ const NASA = () => {
         </section>
       )}
 
-      {/* Near Earth Objects */}
+      
       <section>
         <h2 className="mb-4 text-xl font-semibold tracking-wide text-gold-100">
           ☄️ Near-Earth Asteroids

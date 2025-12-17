@@ -47,9 +47,9 @@ const Favorites = () => {
         }
       });
 
-      if (response.ok) {
+        if (response.ok) {
         setMessage('✅ Removed from favorites');
-        loadFavorites(); // Перезагружаем список
+        loadFavorites();
       } else {
         setMessage('❌ Error removing');
       }

@@ -5,7 +5,6 @@
 import uvicorn
 from app.database import engine, Base
 
-# Создаем таблицы
 Base.metadata.create_all(bind=engine)
 
 if __name__ == "__main__":

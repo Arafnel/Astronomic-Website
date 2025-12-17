@@ -7,6 +7,6 @@ class Event(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, nullable=False)
     date = Column(Date, nullable=False)
-    type = Column(String, nullable=False)  # eclipse, meteor_shower, conjunction
+    type = Column(String, nullable=False)
     description = Column(Text)
-    visibility = Column(String)  # global, northern, southern
+    visibility = Column(String)

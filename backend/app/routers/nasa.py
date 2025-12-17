@@ -48,7 +48,7 @@ def get_near_earth_objects():
         response.raise_for_status()
         data = response.json()
         
-        # Упрощаем данные
+        
         objects = []
         for date, asteroids in data.get("near_earth_objects", {}).items():
             for asteroid in asteroids[:5]:
@@ -97,11 +97,11 @@ def get_nasa_objects():
 @router.post("/objects/{nasa_id}/favorite")
 def add_nasa_object_to_favorites(nasa_id: str, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     """Добавить NASA объект в избранное"""
-    # Проверяем, есть ли уже этот объект в БД
+    
     obj = db.query(AstronomicObject).filter(AstronomicObject.name.contains(nasa_id)).first()
     
     if not obj:
-        # Получаем данные из NASA API
+        
         try:
             response = requests.get(
                 f"{NASA_BASE_URL}/neo/rest/v1/neo/{nasa_id}",
@@ -111,7 +111,7 @@ def add_nasa_object_to_favorites(nasa_id: str, db: Session = Depends(get_db), cu
             response.raise_for_status()
             asteroid = response.json()
             
-            # Создаем объект в БД
+            
             obj = AstronomicObject(
                 name=asteroid["name"],
                 type="asteroid",
@@ -125,7 +125,7 @@ def add_nasa_object_to_favorites(nasa_id: str, db: Session = Depends(get_db), cu
         except:
             raise HTTPException(status_code=404, detail="NASA object not found")
     
-    # Проверяем, не добавлен ли уже в избранное
+    
     existing = db.query(Favorite).filter(
         Favorite.user_id == current_user.id,
         Favorite.object_id == obj.id
